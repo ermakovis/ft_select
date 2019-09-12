@@ -1,5 +1,16 @@
 #include "ft_select.h"
 
+int			cmp_select_current(t_select *select, void *data_ref)
+{
+	int		*ref;
+
+	ref = data_ref;
+	if (select->current == *ref)
+		return (0);
+	return (1);
+
+}
+
 void		print_select(t_list *list)
 {
 	t_select	*select;
@@ -20,7 +31,7 @@ void		del_select(void *content, int size)
 	ft_memdel((void**)&select);
 }
 
-static void		add_select(t_list **alist, char *line)
+void		add_select(t_list **alist, char *line)
 {
 	t_select	*select;
 	t_list		*new;
@@ -33,13 +44,4 @@ static void		add_select(t_list **alist, char *line)
 	if (!(new = ft_lstnew(select, sizeof(t_select))))
 		cleanup(-1, "Malloc failed at add_select");
 	ft_lstadd_last(&g_msh->select_list, new);
-}
-
-void		init_args(int ac, char **av)
-{
-	int		i;
-
-	i = 0;
-	while (av[++i] && i < ac)
-		add_select(&g_msh->select_list, av[i]);
 }

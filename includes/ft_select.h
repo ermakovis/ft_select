@@ -39,6 +39,7 @@ typedef struct			s_cmd
 {
 	char				*area;
 	char				*start;
+	char				*clear_all;
 	char				*clear_line;
 	char				*clear_rest;
 	char				*cur_start;
@@ -71,12 +72,9 @@ void		cleanup(int exit_code, char *message);
 void		init(void);
 
 /*
-** init_args.c.
-** static void add_select(t_list **alist, char *line)
+** init_select.c.
 */
-void		init_args(int ac, char **av);
-void		print_select(t_list *list);
-void		del_select(void *content, int size);
+void		init_select(int ac, char **av);
 
 /*
 ** move.c
@@ -101,4 +99,16 @@ void		choose(long ch);
 **	print.c
 */
 void		print(void);
+int			count_columns(int word_width);
+int			count_word_width(t_list *list);
+
+/*
+**	ut_select_funcs.c
+*/
+void		add_select(t_list **alist, char *line);
+void		print_select(t_list *list);
+void		del_select(void *content, int size);
+int			cmp_select_current(t_select *select, void *data_ref);
+
+
 #endif

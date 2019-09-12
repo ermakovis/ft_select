@@ -3,6 +3,7 @@
 static void		init_cmd_fill(t_cmd *cmd)
 {
 	cmd->start = tgetstr("cr", &cmd->area);
+	cmd->clear_all = tgetstr("cl", &cmd->area);
 	cmd->clear_line = tgetstr("ce", &cmd->area);
 	cmd->clear_rest = tgetstr("cd", &cmd->area);
 	cmd->cur_start = tgetstr("cr", &cmd->area);
@@ -49,7 +50,7 @@ static void		init_orig_state(void)
 
 	if (!(orig = (t_term*)malloc(sizeof(t_term))))
 		cleanup(-1, "Failed to malloc for terminal state structure");
-	if (tcgetattr(0, orig) == -1)
+	if (tcgetattr(STDERR_FILENO, orig) == -1)
 		cleanup(-1, "Failed to save terminal original state");
 	g_msh->original_state = orig;
 }

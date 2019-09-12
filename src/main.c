@@ -17,7 +17,7 @@ void	set_terminal_canon(void)
 {
 	if (!isatty(STDIN_FILENO))
 		return ;
-	if (tcsetattr(0, TCSANOW, g_msh->original_state) == -1)
+	if (tcsetattr(STDERR_FILENO, TCSANOW, g_msh->original_state) == -1)
 		cleanup(-1, "Failed to set terminal to canon mode");
 }
 
@@ -41,7 +41,7 @@ int		main(int ac, char **av)
 	long	ch;
 
 	init();
-	init_args(ac, av);
+	init_select(ac, av);
 	set_terminal_raw();
 	signal(SIGINT, handle_sigint);
 	print();
@@ -51,7 +51,7 @@ int		main(int ac, char **av)
 			break;
 		move(ch);
 		choose(ch);
-		clear();
+	//	clear();
 		print();
 	}
 	

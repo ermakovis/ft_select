@@ -21,11 +21,12 @@ LIB_DIR=./libft
 
 SRC_NAME=main.c\
 		init.c\
-		init_args.c\
+		init_select.c\
 		move.c\
 		choose.c\
 		clear.c\
 		print.c\
+		select_funcs.c\
 		cleanup.c
 
 SRC = $(addprefix $(OBJ_DIR)/, $(SRC_NAME:.c=.o))
