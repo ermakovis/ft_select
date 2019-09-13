@@ -3,17 +3,17 @@
 void		choose(long ch)
 {
 	t_list		*list;
-	t_select	*select;
+	t_elem	*elem;
 
 	if (ch != SPACE)
 		return ;
-	list = g_msh->select_list;
+	list = g_msh->select->elem_list;
 	while (list)
 	{
-		select = list->content;
-		if (select->current == 1)
+		elem = list->content;
+		if (elem->current == 1)
 		{
-			select->selected ^= 1;
+			elem->selected ^= 1;
 			return ;
 		}
 		list = list->next;

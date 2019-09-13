@@ -1,47 +1,47 @@
 #include "ft_select.h"
 
-int			cmp_select_current(t_select *select, void *data_ref)
+int			cmp_elem_current(t_elem *elem, void *data_ref)
 {
 	int		*ref;
 
 	ref = data_ref;
-	if (select->current == *ref)
+	if (elem->current == *ref)
 		return (0);
 	return (1);
 
 }
 
-void		print_select(t_list *list)
+void		print_elem(t_list *list)
 {
-	t_select	*select;
+	t_elem	*elem;
 
-	select = list->content;
-	ft_printf("| %s - %d - %d |\n", select->line, select->selected,\
-		select->current);
+	elem = list->content;
+	ft_printf("| %s - %d - %d |\n", elem->line, elem->selected,\
+		elem->current);
 }
 
-void		del_select(void *content, int size)
+void		del_elem(void *content, int size)
 {
-	t_select	*select;
+	t_elem	*elem;
 
-	select = content;
-	select->selected = 0;
-	select->current = 0;
+	elem = content;
+	elem->selected = 0;
+	elem->current = 0;
 	size = 0;
-	ft_memdel((void**)&select);
+	ft_memdel((void**)&elem);
 }
 
-void		add_select(t_list **alist, char *line)
+void		add_elem(t_list **alist, char *line)
 {
-	t_select	*select;
-	t_list		*new;
+	t_elem	*elem;
+	t_list	*new;
 
-	if (!(select = (t_select*)ft_memalloc(sizeof(t_select))))
-		cleanup(-1, "Malloc failed at add_select");
-	select->line = line;
-	if (!g_msh->select_list)
-		select->current = 1;
-	if (!(new = ft_lstnew(select, sizeof(t_select))))
-		cleanup(-1, "Malloc failed at add_select");
-	ft_lstadd_last(&g_msh->select_list, new);
+	if (!(elem = (t_elem*)ft_memalloc(sizeof(t_elem))))
+		cleanup(-1, "Malloc failed at add_elem");
+	elem->line = line;
+	if (!g_msh->select->elem_list)
+		elem->current = 1;
+	if (!(new = ft_lstnew(elem, sizeof(t_elem))))
+		cleanup(-1, "Malloc failed at add_elem");
+	ft_lstadd_last(&g_msh->select->elem_list, new);
 }

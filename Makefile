@@ -24,9 +24,9 @@ SRC_NAME=main.c\
 		init_select.c\
 		move.c\
 		choose.c\
-		clear.c\
 		print.c\
 		select_funcs.c\
+		signal.c\
 		cleanup.c
 
 SRC = $(addprefix $(OBJ_DIR)/, $(SRC_NAME:.c=.o))

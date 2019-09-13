@@ -4,42 +4,42 @@ void	move_left(void)
 {
 	t_list		*list;
 	t_list		*prev;
-	t_select	*select;
+	t_elem		*elem;	
 
-	prev = g_msh->select_list;
+	prev = g_msh->select->elem_list;
 	list = prev->next;
 	while (list)
 	{
-		select = list->content;
-		if (select->current == 1)
+		elem = list->content;
+		if (elem->current == 1)
 		{
-			select->current = 0;
-			((t_select*)prev->content)->current = 1; 
+			elem->current = 0;
+			((t_elem*)prev->content)->current = 1; 
 			return ;
 		}
 		prev = list;
 		list = list->next;
 	}
-	((t_select*)g_msh->select_list->content)->current = 0; 
-	((t_select*)prev->content)->current = 1; 
+	((t_elem*)g_msh->select->elem_list->content)->current = 0; 
+	((t_elem*)prev->content)->current = 1; 
 }
 
 void	move_right(void)
 {
 	t_list		*list;
-	t_select	*select;
+	t_elem		*elem;
 
-	list = g_msh->select_list;
+	list = g_msh->select->elem_list;
 	while (list)
 	{
-		select = list->content;
-		if (select->current == 1)
+		elem = list->content;
+		if (elem->current == 1)
 		{
-			select->current = 0;
+			elem->current = 0;
 			if (list->next)
-				((t_select*)list->next->content)->current = 1;
+				((t_elem*)list->next->content)->current = 1;
 			else
-				((t_select*)g_msh->select_list->content)->current = 1; 
+				((t_elem*)g_msh->select->elem_list->content)->current = 1;
 			return ;
 		}
 		list = list->next;

@@ -3,6 +3,7 @@
 
 #include "libft.h"
 #include "ft_printf.h"
+#include <stdbool.h>
 #include <sys/ioctl.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -23,16 +24,35 @@
 # define REVERSE		"\033[7m"
 # define RESET			"\033[0m"
 
+# define SUCCESS		0
+# define FAILURE		-1
+
 typedef struct winsize	t_wsize;
 typedef struct termios	t_term;
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
 
-typedef struct			s_select
+typedef struct			s_elem
 {
 	char				*line;
-	int					selected;
-	int					current;
+	bool				selected;
+	bool				current;
+}						t_elem;
+
+typedef struct			s_size
+{
+	size_t				term_width;
+	size_t				term_height;
+	size_t				elem_maxlen;
+	size_t				elem_count;
+	size_t				column_count;
+}						t_size;
+
+typedef struct			s_select
+{
+	t_size				*size;
+	t_list				*elem_list;
+	t_list				*selected_list;
 }						t_select;
 
 typedef struct			s_cmd
@@ -57,10 +77,17 @@ typedef struct			s_msh
 {
 	t_term				*original_state;
 	t_cmd				*cmd;
-	t_list				*select_list;
+	t_select			*select;
 }						t_msh;
 
 t_msh					*g_msh;
+
+/*
+**	main.c
+*/
+void		set_terminal_raw(void);
+void		set_terminal_canon(void);
+
 /*
 **	cleanup.c
 */
@@ -75,6 +102,8 @@ void		init(void);
 ** init_select.c.
 */
 void		init_select(int ac, char **av);
+void		init_select_args(int ac, char **av);
+void		init_select_size(void);
 
 /*
 ** move.c
@@ -103,12 +132,17 @@ int			count_columns(int word_width);
 int			count_word_width(t_list *list);
 
 /*
-**	ut_select_funcs.c
+**	signal.c
 */
-void		add_select(t_list **alist, char *line);
-void		print_select(t_list *list);
-void		del_select(void *content, int size);
-int			cmp_select_current(t_select *select, void *data_ref);
+void		signal_main(void);
+
+/*
+**	select_funcs.c
+*/
+void		add_elem(t_list **alist, char *line);
+void		print_elem(t_list *list);
+void		del_elem(void *content, int size);
+int			cmp_elem_current(t_elem *elem, void *data_ref);
 
 
 #endif

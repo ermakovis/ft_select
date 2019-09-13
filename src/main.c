@@ -21,40 +21,31 @@ void	set_terminal_canon(void)
 		cleanup(-1, "Failed to set terminal to canon mode");
 }
 
-void	handle_sigint(int sig)
-{
-	(void)sig;
-	ft_printf("\n");
-	set_terminal_canon();
-	exit (0);
-}
-
-int		get_char(long *ch)
+void	get_char(long *ch)
 {
 	*ch = 0;
 	read(STDIN_FILENO, ch, sizeof(long));
-	return (1);
+	if (*ch == RETURN)
+		cleanup(0, "SUCCESS");
 }
 
 int		main(int ac, char **av)
 {
 	long	ch;
 
+	if (ac == 1)
+		return (SUCCESS);
 	init();
 	init_select(ac, av);
 	set_terminal_raw();
-	signal(SIGINT, handle_sigint);
-	print();
-	while (get_char(&ch))
+	signal_main();
+	while (true)
 	{
-		if (ch == RETURN)
-			break;
+		print();
+		get_char(&ch);
 		move(ch);
 		choose(ch);
-	//	clear();
-		print();
 	}
-	
 	set_terminal_canon();
-	return (0);
+	return (SUCCESS);
 }	
