@@ -1,6 +1,6 @@
 #include "ft_select.h"
 
-void	move_left(void)
+static void	move_left(void)
 {
 	t_list		*list;
 	t_list		*prev;
@@ -24,7 +24,7 @@ void	move_left(void)
 	((t_elem*)prev->content)->current = 1; 
 }
 
-void	move_right(void)
+static void	move_right(void)
 {
 	t_list		*list;
 	t_elem		*elem;
@@ -46,6 +46,23 @@ void	move_right(void)
 	}
 }
 
+static void	move_up(void)
+{
+	size_t	moves_count;
+
+	moves_count = g_msh->select->size->column_count;
+	while(moves_count--)
+		move_left();
+}
+
+static void	move_down(void)
+{
+	size_t	moves_count;
+
+	moves_count = g_msh->select->size->column_count;
+	while(moves_count--)
+		move_right();
+}
 
 void	move(long ch)
 {
@@ -55,5 +72,9 @@ void	move(long ch)
 		move_left();
 	else if (ch == RIGHT)
 		move_right();
+	else if (ch == UP)
+		move_up();
+	else if (ch == DOWN)
+		move_down();
 }
 

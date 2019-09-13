@@ -109,10 +109,6 @@ void		init_select_size(void);
 /*
 ** move.c
 */
-void		move_left(void);
-void		move_right(void);
-void		move_up(void);
-void		move_down(void);
 void		move(long ch);
 
 /*

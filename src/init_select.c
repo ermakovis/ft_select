@@ -30,6 +30,8 @@ void		init_select_size(void)
 		list = list->next;
 	}
 	size->column_count = wsize.ws_col / (size->elem_maxlen + 1);
+	if (size->column_count == 0)
+		size->column_count = 1;
 }
 
 void		init_select(int ac, char **av)
