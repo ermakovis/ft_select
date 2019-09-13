@@ -16,7 +16,7 @@ void		print_elem(t_list *list)
 	t_elem	*elem;
 
 	elem = list->content;
-	ft_printf("| %s - %d - %d |\n", elem->line, elem->selected,\
+	ft_dprintf(SELECT_OUTPUT, "| %s - %d - %d |\n", elem->line, elem->selected,\
 		elem->current);
 }
 

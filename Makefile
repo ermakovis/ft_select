@@ -23,10 +23,11 @@ SRC_NAME=main.c\
 		init.c\
 		init_select.c\
 		move.c\
-		choose.c\
+		action.c\
 		print.c\
 		select_funcs.c\
 		signal.c\
+		terminal_mods.c\
 		cleanup.c
 
 SRC = $(addprefix $(OBJ_DIR)/, $(SRC_NAME:.c=.o))

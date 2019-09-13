@@ -16,9 +16,11 @@
 # define RIGHT			4414235
 # define UP				4283163
 # define DOWN			4348699
-# define BSPACE 		127
 # define RETURN			10
 # define SPACE			32	
+# define BSPACE 		127
+# define DEL			27
+# define ESC 			2117294875
 
 # define UNDERLINE		"\033[4m"
 # define REVERSE		"\033[7m"
@@ -26,6 +28,7 @@
 
 # define SUCCESS		0
 # define FAILURE		-1
+# define SELECT_OUTPUT	2
 
 typedef struct winsize	t_wsize;
 typedef struct termios	t_term;
@@ -85,8 +88,6 @@ t_msh					*g_msh;
 /*
 **	main.c
 */
-void		set_terminal_raw(void);
-void		set_terminal_canon(void);
 
 /*
 **	cleanup.c
@@ -120,9 +121,9 @@ void		move(long ch);
 void		clear(void);
 
 /*
-**	choose.c
+**	action.c
 */
-void		choose(long ch);
+void		action(long ch);
 
 /*
 **	print.c
@@ -135,6 +136,12 @@ int			count_word_width(t_list *list);
 **	signal.c
 */
 void		signal_main(void);
+
+/*
+**	terminal_mods.c
+*/
+void		set_terminal_raw(void);
+void		set_terminal_canon(void);
 
 /*
 **	select_funcs.c

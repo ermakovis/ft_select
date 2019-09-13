@@ -8,7 +8,7 @@ void	print(void)
 	int			i;
 
 	i = 0;
-	ft_putstr(g_msh->cmd->clear_all);
+	ft_dprintf(2, "%s", g_msh->cmd->clear_all);
 	size = g_msh->select->size;
 	list = g_msh->select->elem_list;
 	while (list)
@@ -16,16 +16,13 @@ void	print(void)
 		i++;
 		elem = list->content;
 		if (elem->selected == 1)
-			ft_printf("%s", REVERSE);
+			ft_dprintf(SELECT_OUTPUT, "%s", REVERSE);
 		if (elem->current == 1)
-			ft_printf("%s", UNDERLINE);
-		ft_printf(" %-*s", size->elem_maxlen, elem->line);
-		ft_printf("%s", RESET);
+			ft_dprintf(SELECT_OUTPUT, "%s", UNDERLINE);
+		ft_dprintf(SELECT_OUTPUT, " %-*s", size->elem_maxlen, elem->line);
+		ft_dprintf(SELECT_OUTPUT, "%s", RESET);
 		list = list->next;
-		if (i == size->column_count)
-		{
-			ft_printf("\n");
+		if (i == size->column_count && ft_dprintf(SELECT_OUTPUT, "\n"))
 			i = 0;
-		}
 	}
 }

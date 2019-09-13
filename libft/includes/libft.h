@@ -88,6 +88,8 @@ void				ft_putstr_fd(const char *str, int fd);
 void				ft_putendl_fd(const char *str, int fd);
 void				ft_putnbr_fd(int n, int fd);
 t_list				*ft_lstnew(const void *content, size_t content_size);
+void				ft_lst_remove(t_list **alist, t_list **list,\
+						void (*del)());
 void				ft_lst_remove_if(t_list **alist, void *data_ref,\
 						int (*cmp)(), void (*del)());
 t_list				*ft_lst_find(t_list *alist, void *data_ref, int (*cmp)());
