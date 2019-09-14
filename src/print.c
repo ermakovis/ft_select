@@ -29,18 +29,46 @@ void	print_line(size_t line_maxlen, size_t term_width, char *line)
 	}
 }
 
+
+t_list	*print_getlist(t_list *list, t_size *size)
+{
+	t_list	*ret;
+	size_t	cur_pos;
+
+	cur_pos = 0;
+	if (size->term_capacity >= size->elem_count)
+		return (list);
+	ret = list;
+	while (ret)
+	{
+		if (((t_elem*)ret->content)->current == 1)
+			break ;
+		cur_pos++;
+		ret = ret->next;
+	}
+	if (size->elem_count - cur_pos >= size->term_capacity)
+		return (ret);
+	cur_pos = size->elem_count - size->term_capacity;
+	ret = list;
+	while (cur_pos--)
+		ret = ret->next;
+	return (ret);
+}
+
 void	print(void)
 {
 	t_list		*list;
 	t_elem		*elem;
 	t_size		*size;
+	size_t		capacity;
 	int			i;
 
 	i = 0;
 	ft_dprintf(2, "%s", g_msh->cmd->clear_all);
 	size = g_msh->select->size;
-	list = g_msh->select->elem_list;
-	while (list)
+	capacity = size->term_capacity;
+	list = g_msh->select->elem_list;  //print_getlist(g_msh->select->elem_list, size);
+	while (list && capacity--)
 	{
 		i++;
 		elem = list->content;

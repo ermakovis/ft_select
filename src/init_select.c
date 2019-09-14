@@ -19,8 +19,7 @@ void		init_select_size(void)
 	list = g_msh->select->elem_list;
 	ioctl(0, TIOCGWINSZ, &wsize);
 	size = g_msh->select->size;
-	size->term_width = wsize.ws_col;
-	size->term_height = wsize.ws_row;
+	bzero(size, sizeof(t_size));
 	while (list)
 	{
 		curlen = ft_strlen(((t_elem*)list->content)->line);
@@ -32,6 +31,9 @@ void		init_select_size(void)
 	size->column_count = wsize.ws_col / (size->elem_maxlen + 1);
 	if (size->column_count == 0)
 		size->column_count = 1;
+	size->term_width = wsize.ws_col;
+	size->term_height = wsize.ws_row - 1;
+	size->term_capacity = size->term_height * size->column_count;
 }
 
 void		init_select(int ac, char **av)

@@ -53,6 +53,7 @@ typedef struct			s_size
 {
 	size_t				term_width;
 	size_t				term_height;
+	size_t				term_capacity;
 	size_t				elem_maxlen;
 	size_t				elem_count;
 	size_t				column_count;

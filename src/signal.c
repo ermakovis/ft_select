@@ -13,12 +13,13 @@ void	signal_cont(int sig)
 	(void)sig;
 	set_terminal_raw();
 	init_select_size();
-	print();
+	//print();
 }
 
 void	signal_winch(int sig)
 {
 	(void)sig;
+	set_terminal_raw();
 	init_select_size();
 	print();
 }
