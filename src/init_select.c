@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_select.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/14 21:24:14 by tcase             #+#    #+#             */
+/*   Updated: 2019/09/14 21:24:21 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
 void		init_select_args(int ac, char **av)
@@ -38,7 +50,6 @@ void		init_select_size(void)
 
 void		init_select(int ac, char **av)
 {
-
 	if (!(g_msh->select = (t_select*)ft_memalloc(sizeof(t_select))))
 		cleanup(-1, "Malloc failed at init_select");
 	if (!(g_msh->select->size = (t_size*)ft_memalloc(sizeof(t_size))))

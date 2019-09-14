@@ -1,15 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_select.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/14 22:44:36 by tcase             #+#    #+#             */
+/*   Updated: 2019/09/14 22:46:29 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_SELECT_H
 # define FT_SELECT_H
 
-#include "libft.h"
-#include "ft_printf.h"
-#include <stdbool.h>
-#include <sys/ioctl.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <termios.h>
-#include <term.h>
-#include <signal.h>
+# include "libft.h"
+# include "ft_printf.h"
+# include <stdbool.h>
+# include <limits.h>
+# include <sys/ioctl.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <termios.h>
+# include <term.h>
+# include <signal.h>
 
 # define SELECT_BUFF	260000
 # define LEFT			4479771
@@ -17,7 +30,7 @@
 # define UP				4283163
 # define DOWN			4348699
 # define RETURN			10
-# define SPACE			32	
+# define SPACE			32
 # define BSPACE 		127
 # define ESC			27
 # define DEL 			2117294875
@@ -63,6 +76,7 @@ typedef struct			s_select
 {
 	t_size				*size;
 	t_list				*elem_list;
+	char				search_line[PATH_MAX];
 }						t_select;
 
 typedef struct			s_cmd
@@ -92,67 +106,35 @@ typedef struct			s_msh
 
 t_msh					*g_msh;
 
-/*
-**	main.c
-*/
-
-/*
-**	cleanup.c
-*/
-void		cleanup(int exit_code, char *message);
-
-/*
-**	init.c
-*/
-void		init(void);
-
-/*
-** init_select.c.
-*/
-void		init_select(int ac, char **av);
-void		init_select_args(int ac, char **av);
-void		init_select_size(void);
-
-/*
-** move.c
-*/
-void		move(long ch);
-
-/*
-**	clear.c
-*/
-void		clear(void);
-
-/*
-**	action.c
-*/
-void		action(long ch);
-
-/*
-**	print.c
-*/
-void		print(void);
-int			count_columns(int word_width);
-int			count_word_width(t_list *list);
+void					cleanup(int exit_code, char *message);
+void					init(void);
+void					init_select(int ac, char **av);
+void					init_select_args(int ac, char **av);
+void					init_select_size(void);
+void					move(long ch);
+void					clear(void);
+void					action(long ch);
+void					search(long ch);
+void					s_exit(long ch);
+void					print(void);
 
 /*
 **	signal.c
 */
-void		signal_main(void);
+void					signal_main(void);
 
 /*
 **	terminal_mods.c
 */
-void		set_terminal_raw(void);
-void		set_terminal_canon(void);
+void					set_terminal_raw(void);
+void					set_terminal_canon(void);
 
 /*
 **	select_funcs.c
 */
-void		add_elem(t_list **alist, char *line);
-void		print_elem(t_list *list);
-void		del_elem(void *content, size_t size);
-int			cmp_elem_current(t_elem *elem, void *data_ref);
-
-
+void					add_elem(t_list **alist, char *line);
+void					print_elem(t_list *list);
+void					del_elem(void *content, size_t size);
+int						cmp_elem_current(t_elem *elem, void *data_ref);
+void					get_char(long *ch);
 #endif

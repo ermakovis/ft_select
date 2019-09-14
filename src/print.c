@@ -1,6 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/14 21:26:15 by tcase             #+#    #+#             */
+/*   Updated: 2019/09/14 22:34:17 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
-void	print_line(size_t line_maxlen, size_t term_width, char *line)
+static t_list	*print_getlist(t_list *list, t_size *size)
+{
+	t_list	*ret;
+	size_t	cur_pos;
+
+	cur_pos = 0;
+	if (size->term_capacity >= size->elem_count)
+		return (list);
+	ret = list;
+	while (ret)
+	{
+		if (((t_elem*)ret->content)->current == true)
+			break ;
+		cur_pos++;
+		ret = ret->next;
+	}
+	if (size->elem_count - cur_pos >= size->term_capacity)
+		return (ret);
+	cur_pos = size->elem_count - size->term_capacity;
+	ret = list;
+	while (cur_pos--)
+		ret = ret->next;
+	return (ret);
+}
+
+static void		print_line_color(char *line)
 {
 	int		item_type;
 
@@ -19,6 +56,42 @@ void	print_line(size_t line_maxlen, size_t term_width, char *line)
 		else if (item_type == 7)
 			ft_dprintf(SELECT_OUTPUT, COL_EXE);
 	}
+}
+
+static void		print_line(t_elem *elem)
+{
+	char	*line;
+	size_t	term_width;
+	size_t	line_maxlen;
+
+	line = elem->line;
+	term_width = g_msh->select->size->term_width;
+	line_maxlen = g_msh->select->size->elem_maxlen;
+	if (elem->selected == true)
+		ft_dprintf(SELECT_OUTPUT, REVERSE);
+	if (elem->current == true)
+		ft_dprintf(SELECT_OUTPUT, UNDERLINE);
+	print_line_color(line);
+	if (line_maxlen < term_width)
+		ft_dprintf(SELECT_OUTPUT, " %-*s", line_maxlen, line);
+	else
+	{
+		ft_dprintf(SELECT_OUTPUT, "%.*s", term_width - 3, line);
+		if (term_width - 3 <= ft_strlen(line))
+			ft_dprintf(SELECT_OUTPUT, "...");
+	}
+	ft_dprintf(SELECT_OUTPUT, RESET);
+}
+
+static void		print_search(void)
+{
+	char	*line;
+	size_t	term_width;
+	size_t	line_maxlen;
+
+	line = g_msh->select->search_line;
+	term_width = g_msh->select->size->term_width;
+	line_maxlen = ft_strlen(g_msh->select->search_line);
 	if (line_maxlen < term_width)
 		ft_dprintf(SELECT_OUTPUT, " %-*s", line_maxlen, line);
 	else
@@ -29,36 +102,9 @@ void	print_line(size_t line_maxlen, size_t term_width, char *line)
 	}
 }
 
-
-t_list	*print_getlist(t_list *list, t_size *size)
-{
-	t_list	*ret;
-	size_t	cur_pos;
-
-	cur_pos = 0;
-	if (size->term_capacity >= size->elem_count)
-		return (list);
-	ret = list;
-	while (ret)
-	{
-		if (((t_elem*)ret->content)->current == 1)
-			break ;
-		cur_pos++;
-		ret = ret->next;
-	}
-	if (size->elem_count - cur_pos >= size->term_capacity)
-		return (ret);
-	cur_pos = size->elem_count - size->term_capacity;
-	ret = list;
-	while (cur_pos--)
-		ret = ret->next;
-	return (ret);
-}
-
-void	print(void)
+void			print(void)
 {
 	t_list		*list;
-	t_elem		*elem;
 	t_size		*size;
 	size_t		capacity;
 	int			i;
@@ -71,15 +117,13 @@ void	print(void)
 	while (list && capacity--)
 	{
 		i++;
-		elem = list->content;
-		if (elem->selected == 1)
-			ft_dprintf(SELECT_OUTPUT, REVERSE);
-		if (elem->current == 1)
-			ft_dprintf(SELECT_OUTPUT, UNDERLINE);
-		print_line(size->elem_maxlen, size->term_width, elem->line);
-		ft_dprintf(SELECT_OUTPUT, RESET);
+		print_line(list->content);
 		list = list->next;
 		if (i == size->column_count && ft_dprintf(SELECT_OUTPUT, "\n"))
 			i = 0;
 	}
+	if (i)
+		ft_dprintf(SELECT_OUTPUT, "\n");
+	if (g_msh->select->search_line[0])
+		print_search();
 }

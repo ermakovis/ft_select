@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/14 21:25:56 by tcase             #+#    #+#             */
+/*   Updated: 2019/09/14 21:26:11 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
 static void	move_left(void)
 {
 	t_list		*list;
 	t_list		*prev;
-	t_elem		*elem;	
+	t_elem		*elem;
 
 	prev = g_msh->select->elem_list;
 	list = prev->next;
@@ -14,14 +26,14 @@ static void	move_left(void)
 		if (elem->current == 1)
 		{
 			elem->current = 0;
-			((t_elem*)prev->content)->current = 1; 
+			((t_elem*)prev->content)->current = 1;
 			return ;
 		}
 		prev = list;
 		list = list->next;
 	}
-	((t_elem*)g_msh->select->elem_list->content)->current = 0; 
-	((t_elem*)prev->content)->current = 1; 
+	((t_elem*)g_msh->select->elem_list->content)->current = 0;
+	((t_elem*)prev->content)->current = 1;
 }
 
 static void	move_right(void)
@@ -51,7 +63,7 @@ static void	move_up(void)
 	size_t	moves_count;
 
 	moves_count = g_msh->select->size->column_count;
-	while(moves_count--)
+	while (moves_count--)
 		move_left();
 }
 
@@ -60,11 +72,11 @@ static void	move_down(void)
 	size_t	moves_count;
 
 	moves_count = g_msh->select->size->column_count;
-	while(moves_count--)
+	while (moves_count--)
 		move_right();
 }
 
-void	move(long ch)
+void		move(long ch)
 {
 	if (!(ch == LEFT || ch == RIGHT || ch == UP || ch == DOWN))
 		return ;
@@ -77,4 +89,3 @@ void	move(long ch)
 	else if (ch == DOWN)
 		move_down();
 }
-

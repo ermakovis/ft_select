@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   select_funcs.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/14 22:43:25 by tcase             #+#    #+#             */
+/*   Updated: 2019/09/14 22:43:26 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
 int			cmp_elem_current(t_elem *elem, void *data_ref)
@@ -8,7 +20,6 @@ int			cmp_elem_current(t_elem *elem, void *data_ref)
 	if (elem->current == *ref)
 		return (0);
 	return (1);
-
 }
 
 void		print_elem(t_list *list)
@@ -28,7 +39,7 @@ void		del_elem(void *content, size_t size)
 	elem->selected = 0;
 	elem->current = 0;
 	size = 0;
-	ft_memdel((void**)&elem);
+	ft_memdel(&content);
 }
 
 void		add_elem(t_list **alist, char *line)

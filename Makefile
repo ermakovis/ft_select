@@ -6,7 +6,7 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/08/11 09:39:46 by tcase            ###   ########.fr        #
+#    Updated: 2019/09/14 19:21:41 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC_NAME=main.c\
 		move.c\
 		action.c\
 		print.c\
+		search.c\
 		select_funcs.c\
 		signal.c\
 		terminal_mods.c\

@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 20:12:47 by tcase             #+#    #+#             */
-/*   Updated: 2019/07/26 20:25:07 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/14 22:48:04 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	ft_item_type(char *path)
 		return (5);
 	if (S_ISBLK(stat.st_mode))
 		return (6);
-	if (S_IXUSR & stat.st_mode || S_IXGRP & stat.st_mode || S_IXOTH & stat.st_mode)	
+	if (S_IXUSR & stat.st_mode || S_IXGRP & stat.st_mode ||\
+			S_IXOTH & stat.st_mode)
 		return (7);
 	return (8);
 }
