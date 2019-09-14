@@ -20,7 +20,7 @@ void		print_elem(t_list *list)
 		elem->current);
 }
 
-void		del_elem(void *content, int size)
+void		del_elem(void *content, size_t size)
 {
 	t_elem	*elem;
 
@@ -43,5 +43,6 @@ void		add_elem(t_list **alist, char *line)
 		elem->current = 1;
 	if (!(new = ft_lstnew(elem, sizeof(t_elem))))
 		cleanup(-1, "Malloc failed at add_elem");
+	ft_memdel((void**)&elem);
 	ft_lstadd_last(&g_msh->select->elem_list, new);
 }

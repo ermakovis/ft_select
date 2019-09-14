@@ -27,8 +27,6 @@ static void		init_cmd(void)
 		cleanup(-1, "Failed to malloc for command structure");
 	if (tgetent(buffer, getenv("TERM")) < 0)
 		cleanup(-1, "Failed to get terminfo at init_term");
-	if (!(cmd->area = ft_strnew(SELECT_BUFF)))
-		cleanup(-1, "Malloc failed at init_term_command");
 	ft_bzero(cmd, sizeof(t_cmd));
 	init_cmd_fill(cmd);
 	g_msh->cmd = cmd;

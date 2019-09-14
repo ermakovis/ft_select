@@ -67,7 +67,7 @@ void	print(void)
 	ft_dprintf(2, "%s", g_msh->cmd->clear_all);
 	size = g_msh->select->size;
 	capacity = size->term_capacity;
-	list = g_msh->select->elem_list;  //print_getlist(g_msh->select->elem_list, size);
+	list = print_getlist(g_msh->select->elem_list, size);
 	while (list && capacity--)
 	{
 		i++;

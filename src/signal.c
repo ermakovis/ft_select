@@ -13,7 +13,7 @@ void	signal_cont(int sig)
 	(void)sig;
 	set_terminal_raw();
 	init_select_size();
-	//print();
+	print();
 }
 
 void	signal_winch(int sig)
@@ -29,6 +29,7 @@ void	signal_stop(int sig)
 	(void)sig;
 	set_terminal_canon();
 	signal(SIGTSTP, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	ioctl(STDERR_FILENO, TIOCSTI, "\x1A");
 }
 

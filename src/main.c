@@ -27,7 +27,7 @@ void	get_char(long *ch)
 {
 	*ch = 0;
 	read(STDIN_FILENO, ch, sizeof(long));
-	if (*ch == RETURN)
+	if (*ch == RETURN || *ch == DEL)
 	{
 		set_terminal_canon();
 		print_selected();

@@ -19,8 +19,8 @@
 # define RETURN			10
 # define SPACE			32	
 # define BSPACE 		127
-# define DEL			27
-# define ESC 			2117294875
+# define ESC			27
+# define DEL 			2117294875
 
 # define UNDERLINE		"\033[4m"
 # define REVERSE		"\033[7m"
@@ -63,7 +63,6 @@ typedef struct			s_select
 {
 	t_size				*size;
 	t_list				*elem_list;
-	t_list				*selected_list;
 }						t_select;
 
 typedef struct			s_cmd
@@ -152,7 +151,7 @@ void		set_terminal_canon(void);
 */
 void		add_elem(t_list **alist, char *line);
 void		print_elem(t_list *list);
-void		del_elem(void *content, int size);
+void		del_elem(void *content, size_t size);
 int			cmp_elem_current(t_elem *elem, void *data_ref);
 
 
