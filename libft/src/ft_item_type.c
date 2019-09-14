@@ -32,5 +32,7 @@ int	ft_item_type(char *path)
 		return (5);
 	if (S_ISBLK(stat.st_mode))
 		return (6);
-	return (-1);
+	if (S_IXUSR & stat.st_mode || S_IXGRP & stat.st_mode || S_IXOTH & stat.st_mode)	
+		return (7);
+	return (8);
 }

@@ -25,10 +25,17 @@
 # define UNDERLINE		"\033[4m"
 # define REVERSE		"\033[7m"
 # define RESET			"\033[0m"
+# define COL_DIR    	"\x1b[34m"
+# define COL_CHR		"\x1b[43m\x1b[34m"
+# define COL_BLK		"\x1b[46m\x1b[34m"
+# define COL_EXE	    "\x1b[31m"
+# define COL_FIF	    "\x1b[33m"
+# define COL_LNK	    "\x1b[35m"
+
+# define SELECT_OUTPUT	2
 
 # define SUCCESS		0
 # define FAILURE		-1
-# define SELECT_OUTPUT	2
 
 typedef struct winsize	t_wsize;
 typedef struct termios	t_term;
