@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 22:43:13 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/14 22:43:14 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/15 10:40:20 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	signal_quit(int sig)
 void	signal_cont(int sig)
 {
 	(void)sig;
+	signal_main();
 	set_terminal_raw();
 	init_select_size();
 	print();
@@ -40,8 +41,13 @@ void	signal_stop(int sig)
 {
 	(void)sig;
 	set_terminal_canon();
-	signal(SIGTSTP, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGABRT, SIG_DFL);
+	signal(SIGSTOP, SIG_DFL);
+	signal(SIGKILL, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+	signal(SIGWINCH, SIG_DFL);
 	ioctl(STDERR_FILENO, TIOCSTI, "\x1A");
 }
 

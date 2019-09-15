@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 21:26:15 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/14 22:34:17 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/15 11:44:19 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void		print_line(t_elem *elem)
 		ft_dprintf(SELECT_OUTPUT, UNDERLINE);
 	print_line_color(line);
 	if (line_maxlen < term_width)
-		ft_dprintf(SELECT_OUTPUT, " %-*s", line_maxlen, line);
+		ft_dprintf(SELECT_OUTPUT, "%-*s ", line_maxlen, line);
 	else
 	{
 		ft_dprintf(SELECT_OUTPUT, "%.*s", term_width - 3, line);
@@ -93,7 +93,7 @@ static void		print_search(void)
 	term_width = g_msh->select->size->term_width;
 	line_maxlen = ft_strlen(g_msh->select->search_line);
 	if (line_maxlen < term_width)
-		ft_dprintf(SELECT_OUTPUT, " %-*s", line_maxlen, line);
+		ft_dprintf(SELECT_OUTPUT, "%-*s", line_maxlen, line);
 	else
 	{
 		ft_dprintf(SELECT_OUTPUT, "%.*s", term_width - 3, line);

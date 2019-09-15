@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 21:24:48 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/14 21:25:03 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/15 10:59:41 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ int		main(int ac, char **av)
 	long	ch;
 
 	if (ac == 1)
+	{
+		ft_dprintf(2, "Useage: ./ft_select arg1 [arg2...]\n");
 		return (SUCCESS);
+	}
 	init();
 	init_select(ac, av);
 	set_terminal_raw();

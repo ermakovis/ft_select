@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 21:23:59 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/14 21:24:00 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/15 11:24:09 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,28 @@ static void		init_cmd_fill(t_cmd *cmd)
 	cmd->insert_mode_off = tgetstr("ei", &cmd->area);
 }
 
-static void		init_cmd(void)
+static t_cmd	*init_cmd(void)
 {
 	t_cmd	*cmd;
 	char	*term_name;
 	char	buffer[SELECT_BUFF];
+	int		res;
 
+	if (!(term_name = getenv("TERM")))
+	{
+		ft_dprintf(2, "Failed to get term name\n");
+		exit(FAILURE);
+	}
+	if (tgetent(buffer, term_name) < 1)
+	{
+		ft_dprintf(2, "Failed to get info from terminfo database\n");
+		exit(FAILURE);
+	}
 	if (!(cmd = (t_cmd*)malloc(sizeof(t_cmd))))
 		cleanup(-1, "Failed to malloc for command structure");
-	if (tgetent(buffer, getenv("TERM")) < 0)
-		cleanup(-1, "Failed to get terminfo at init_term");
 	ft_bzero(cmd, sizeof(t_cmd));
 	init_cmd_fill(cmd);
-	g_msh->cmd = cmd;
+	return (cmd);
 }
 
 static void		init_msh(void)
@@ -54,20 +63,25 @@ static void		init_msh(void)
 	g_msh = new_msh;
 }
 
-static void		init_orig_state(void)
+static t_term	*init_orig_state(void)
 {
 	t_term	*orig;
 
 	if (!(orig = (t_term*)malloc(sizeof(t_term))))
-		cleanup(-1, "Failed to malloc for terminal state structure");
+		exit(FAILURE);
 	if (tcgetattr(STDERR_FILENO, orig) == -1)
-		cleanup(-1, "Failed to save terminal original state");
-	g_msh->original_state = orig;
+		exit(FAILURE);
+	return (orig);
 }
 
 void			init(void)
 {
+	t_cmd		*cmd;
+	t_term		*term;
+
+	cmd = init_cmd();
+	term = init_orig_state();
 	init_msh();
-	init_cmd();
-	init_orig_state();
+	g_msh->cmd = cmd;
+	g_msh->original_state = term;
 }
